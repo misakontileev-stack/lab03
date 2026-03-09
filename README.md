@@ -600,35 +600,59 @@ $ git pull --rebase origin master
 Вывод:
 
 ```sh
-remote: Enumerating objects: 5, done.
-remote: Counting objects: 100% (5/5), done.
-remote: Compressing objects: 100% (3/3), done.
-remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
-Распаковка объектов: 100% (3/3), 1.18 КиБ | 1.18 МиБ/с, готово.
 Из https://github.com/misakontileev-stack/lab02
- * branch            master     -> FETCH_HEAD
-   e543b53..a1edb6b  master     -> origin/master
+ * branch            master_test -> FETCH_HEAD
 Автослияние hello_world.cpp
 КОНФЛИКТ (содержимое): Конфликт слияния в hello_world.cpp
-error: не удалось применить коммит 51f30a1... Изменен стиль с помощью опции -style=Mozilla
+error: не удалось применить коммит 8627f29... Изменен стиль с помощью clang-format
 подсказка: Resolve all conflicts manually, mark them as resolved with
 подсказка: "git add/rm <conflicted_files>", then run "git rebase --continue".
 подсказка: You can instead skip this commit: run "git rebase --skip".
 подсказка: To abort and get back to the state before "git rebase", run "git rebase --abort".
-Не удалось применить коммит 51f30a1... Изменен стиль с помощью опции -style=Mozilla
+Не удалось применить коммит 8627f29... Изменен стиль с помощью clang-format
 ```
 
 7. Сделайте force push в ветку patch2
 
+Отредактировал файл обратно.
+
 ```sh
 $ git add hello_world.cpp
 
+$ git rebase --continue
+```
+
+Вывод:
+
+```sh
+[отделённый HEAD e8ca849] Изменен стиль с помощью clang-format
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Успешно перемещён и обновлён refs/heads/patch2.
+```
+
+```sh
 $ git push -f origin patch2
+```
+
+Вывод:
+
+```sh
+Username for 'https://github.com': misakontileev
+Password for 'https://misakontileev@github.com': 
+Перечисление объектов: 5, готово.
+Подсчет объектов: 100% (5/5), готово.
+При сжатии изменений используется до 4 потоков
+Сжатие объектов: 100% (3/3), готово.
+Запись объектов: 100% (3/3), 359 байтов | 359.00 КиБ/с, готово.
+Всего 3 (изменений 2), повторно использовано 0 (изменений 0), повторно использовано пакетов 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/misakontileev-stack/lab02.git
+ + 8627f29...e8ca849 patch2 -> patch2 (forced update)
 ```
 
 8. Убедитеcь, что в pull-request пропали конфликтны.
 
-Все конфикты устранены удаленно через GinHub. Был возвращен прежний вид файла hello_worlg.cpp.
+Все конфикты устранены удаленно через GinHub. Был возвращен прежний вид файла hello_world.cpp.
 
 9. Вмержите pull-request patch2 -> master.
 
